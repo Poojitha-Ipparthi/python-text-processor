@@ -1,3 +1,5 @@
+import sys
+
 def read_file(file_path):
     """Read text from a file."""
     try:
@@ -57,29 +59,33 @@ def main(input_file="input.txt", output_file="output.txt"):
         return False
     print("\nFile Content:")
     print(text if text else "FILE IS EMPTY")
-    choice = input("\nDo you want to edit the content of the file? (Y/N): ").strip().upper()
-    if choice == 'Y':
-        print("\nPlease enter your new content below. Type 'Done' on a new line to finish:")
-        lines = []
-        while True:
-            line = input()
-            if line.strip().upper() == "DONE":
-                break
-            lines.append(line)
-        newText = "\n".join(lines)
-        if write_file(input_file, newText):
-            print("File has been updated.")
-            text = newText
-        else:
-            print("Failed to update the file.")
-        results = process_text(text)
-        if results:
-            success = write_results(results, output_file)
-            if success:
-                print(f"Processing complete. Results written to {output_file}")
-                return True
+    if sys.stdin.isatty():
+        choice = input("\nDo you want to edit the content of the file? (Y/N): ").strip().upper()
+        if choice == 'Y':
+            print("\nPlease enter your new content below. Type 'Done' on a new line to finish:")
+            lines = []
+            while True:
+                line = input()
+                if line.strip().upper() == "DONE":
+                    break
+                lines.append(line)
+            newText = "\n".join(lines)
+            if write_file(input_file, newText):
+                print("File has been updated.")
+                text = newText
+            else:
+                print("Failed to update the file.")
+    else:
+        print("Running in non-interactive mode. Processing existing file content.")
     
-    print("Processing failed. The contents of the file were not modified.")
+    results = process_text(text)
+    if results:
+        success = write_results(results, output_file)
+        if success:
+            print(f"Processing complete. Results written to {output_file}")
+            return True
+    
+    print("Processing failed.")
     return False
 
 if __name__ == "__main__":
