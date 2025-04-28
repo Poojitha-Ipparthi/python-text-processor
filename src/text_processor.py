@@ -75,6 +75,7 @@ def main(input_file="input.txt", output_file="output/output.txt"):
             if write_file(input_file, newText):
                 print("File has been updated.")
                 text = newText
+                input("\nProcessing complete. Press ENTER to exit.")
             else:
                 print("Failed to update the file.")
     else:
@@ -85,7 +86,6 @@ def main(input_file="input.txt", output_file="output/output.txt"):
         success = write_results(results, output_file)
         if success:
             print(f"Processing complete. Results written to {output_file}")
-            input("\nProcessing complete. Press ENTER to exit.")
             return True
     
     print("Processing failed.")
