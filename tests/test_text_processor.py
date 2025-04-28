@@ -27,12 +27,12 @@ class TestTextProcessor(unittest.TestCase):
         
         # Process and write results
         results = process_text(text)
-        success = write_results(results, "test_output.txt")
+        success = write_results(results, "output/test_output.txt")
         self.assertTrue(success)
         
         # Clean up
         os.remove("test_input.txt")
-        os.remove("test_output.txt")
+        os.remove("output/test_output.txt")
 
 if __name__ == "__main__":
     unittest.main()
