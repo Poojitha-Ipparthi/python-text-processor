@@ -1,9 +1,0 @@
-Original Text:
-File editing was successful!
-Good Job!
-
-Word Count: 6
-
-Uppercase Text:
-FILE EDITING WAS SUCCESSFUL!
-GOOD JOB!

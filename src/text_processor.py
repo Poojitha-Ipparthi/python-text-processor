@@ -1,3 +1,4 @@
+import os
 import sys
 
 def read_file(file_path):
@@ -42,6 +43,7 @@ def write_results(results, output_file):
         return False
     
     try:
+        os.makedirs(os.path.dirname(output_file), exist_ok=True)
         with open(output_file, 'w') as file:
             file.write(f"Original Text:\n{results['original_text']}\n\n")
             file.write(f"Word Count: {results['word_count']}\n\n")
@@ -51,7 +53,7 @@ def write_results(results, output_file):
         print(f"Error writing to file: {e}")
         return False
 
-def main(input_file="input.txt", output_file="output.txt"):
+def main(input_file="input.txt", output_file="output/output.txt"):
     """Main function to process a text file."""
     text = read_file(input_file)
     if text is None:
@@ -83,6 +85,7 @@ def main(input_file="input.txt", output_file="output.txt"):
         success = write_results(results, output_file)
         if success:
             print(f"Processing complete. Results written to {output_file}")
+            input("\nProcessing complete. Press ENTER to exit.")
             return True
     
     print("Processing failed.")
